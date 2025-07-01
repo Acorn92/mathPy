@@ -1,0 +1,16 @@
+import sympy as sp
+x = sp.Symbol('x', real=True)
+y = sp.Function('y')
+t = sp.symbols('t')
+u = sp.Function('u')
+u2 = sp.Function('u2')
+u3 = sp.Function('u3')
+
+eqn1 = sp.Eq(u(t), sp.Derivative(y(t), t))
+sp.pprint(eqn1)
+eqn2 = sp.Eq(u2(t), sp.Derivative(u(t), t))
+sp.pprint(eqn2)
+eqn3 = sp.Eq(u3(t),-2*u2(t) + 3*u(t))
+sp.pprint(eqn3)
+res = sp.dsolve([eqn1, eqn2, eqn3], [y(t), u(t), u2(t)], ics={u2(t).subs(t,0): 3, u(t).subs(t,0): 0, y(0): 1})
+sp.pprint(res)

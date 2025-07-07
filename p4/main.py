@@ -51,8 +51,32 @@ def v4_3():
     vM = wR3*r3
     sp.pprint(vM)
 
+def v4_4():
+    params = {
+        'aA' : 2,
+        'aB' : 4*np.sqrt(2),
+        'd' : 2
+    }
+    aBx = params['aB']*np.cos(np.pi/4)
+    aBy = params['aB']*np.sin(np.pi/4)
+
+    aA = sp.Matrix([0, params['aA']])
+    aB = sp.Matrix([aBx, aBy])
+    rABc = sp.Matrix([2, 0, 0])
+    rBCc = sp.Matrix([0, 2, 0])
+    rAB = sp.Matrix([2, 0])
+    e, w = sp.symbols('e w')
+    eM = sp.Matrix([0,0,e]) #угловое ускорение
+    eq = aA + eM.cross(rABc)[0:2, 0] + (w**2)*rAB - aB #формула распределения ускорений в твердом теле
+    #через вектор к которому приложено ускорение левой части
+    w2 = 2
+    E = sp.solve(eq, e)
+    eqC = aA + eM.subs('e', 1).cross(rBCc)[0:2, 0] + w2*rAB #для ускорения аС через вектор ВС
+    
+    sp.pprint(eqC.norm(1)) 
+
 def main():
-    v4_3()
+    v4_4()
 
 if __name__ == "__main__":
     main()

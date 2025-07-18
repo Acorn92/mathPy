@@ -3,3 +3,7 @@
 *.ggb
 *.mp4
 *.gif
+__pycache__/
+media/
+question/
+*.gif
